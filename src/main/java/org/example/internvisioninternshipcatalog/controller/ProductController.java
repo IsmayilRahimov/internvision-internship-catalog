@@ -30,17 +30,17 @@ public class ProductController {
         return productService.create(product);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Product update(@PathVariable Long id, @RequestBody Product product) {
         return productService.update(id, product);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public Product getById(@PathVariable Long id) {
         return productService.findById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteById(@PathVariable Long id) {
         return productService.deleteById(id);
     }

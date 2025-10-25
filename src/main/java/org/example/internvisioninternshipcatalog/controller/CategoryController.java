@@ -23,17 +23,17 @@ public class CategoryController {
         return categoryService.create(category);
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/getById{id}")
     public Category getById(@PathVariable Long id) {
         return categoryService.getByid(id);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public Category update(@PathVariable Long id, @RequestBody Category category) {
         return categoryService.update(id, category);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public String deleteById(@PathVariable Long id) {
         return categoryService.deleteById(id);
     }
