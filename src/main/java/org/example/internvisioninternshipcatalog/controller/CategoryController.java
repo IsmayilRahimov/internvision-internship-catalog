@@ -23,7 +23,7 @@ public class CategoryController {
         return categoryService.create(category);
     }
 
-    @GetMapping("/getById{id}")
+    @GetMapping("/getById/{id}")
     public Category getById(@PathVariable Long id) {
         return categoryService.getByid(id);
     }
@@ -37,6 +37,5 @@ public class CategoryController {
     public String deleteById(@PathVariable Long id) {
         return categoryService.deleteById(id);
     }
-
 
 }

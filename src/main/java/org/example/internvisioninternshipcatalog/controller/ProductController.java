@@ -3,6 +3,8 @@ package org.example.internvisioninternshipcatalog.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.internvisioninternshipcatalog.model.Product;
 import org.example.internvisioninternshipcatalog.service.ProductService;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/create/products")
     public Product create(@RequestBody Product product) {
         return productService.create(product);
     }
@@ -45,5 +47,10 @@ public class ProductController {
         return productService.deleteById(id);
     }
 
+    @GetMapping("/paged")
+    public Page<Product> getPage(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "5") int size) {
+        return productService.getAllPaged(page, size);
 
+    }
 }

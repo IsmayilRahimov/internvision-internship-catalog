@@ -7,7 +7,12 @@ import org.example.internvisioninternshipcatalog.model.Category;
 import org.example.internvisioninternshipcatalog.model.Product;
 import org.example.internvisioninternshipcatalog.repository.CategoryRepository;
 import org.example.internvisioninternshipcatalog.repository.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -36,12 +41,18 @@ public class ProductService {
         existing.setPrice(product.getPrice());
         existing.setStock(product.getStock());
         existing.setCategory(product.getCategory());
+
+        if (product.getCategory() != null) {
+            Category category = categoryRepository.findById(product.getCategory().getId())
+                    .orElseThrow(() -> new RuntimeException("Category with id " + product.getCategory().getId() + " not found"));
+            existing.setCategory(category);
+        }
         return productRepository.save(existing);
     }
 
     public String deleteById(Long id) {
         if (!productRepository.existsById(id)) {
-            throw new RuntimeException("Product with id " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with id " + id + " not found");
         }
         productRepository.deleteById(id);
         return "Product with id " + id + " has been deleted";
@@ -61,6 +72,12 @@ public class ProductService {
 
     public List<Product> getAvailableProducts() {
         return productRepository.findByStockGreaterThan(0);
+    }
+
+    public Page<Product> getAllPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findAll(pageable);
+
     }
 
 
