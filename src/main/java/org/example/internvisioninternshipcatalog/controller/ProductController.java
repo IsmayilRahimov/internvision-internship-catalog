@@ -3,7 +3,6 @@ package org.example.internvisioninternshipcatalog.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.internvisioninternshipcatalog.model.Product;
 import org.example.internvisioninternshipcatalog.service.ProductService;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
